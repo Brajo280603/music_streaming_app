@@ -1,38 +1,22 @@
-# sv
+# Music Streaming APP
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+powered by [`svelte`](https://github.com/sveltejs/).
 
-## Creating a project
+## Running Project
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```sh
+# Clone Project to Device
+git clone https://github.com/Brajo280603/music_streaming_app.git
+
+# Open Project Folder
+cd music_streaming_app
+
+# Install Dependencies
+npm install
+
+# Running
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
 
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
