@@ -6,6 +6,13 @@
     export let quality_option = []
 
   let playUrl 
+  let audioElem;
+
+  function playSong(){
+    audioElem.src=playUrl;
+    audioElem.play();
+  }
+
 </script>
 
 <div
@@ -43,7 +50,11 @@
           {/each}
       </select>
 
-      <a href="{playUrl}" class="btn preset-outlined-secondary-500" >Play</a>
+      <!-- <a href="{playUrl}" class="btn preset-outlined-secondary-500" >Play</a> -->
+      
+      <button on:click={playSong} class="btn preset-outlined-secondary-500">Play</button>
     </div>
   </footer>
 </div>
+
+<audio bind:this={audioElem}></audio>
