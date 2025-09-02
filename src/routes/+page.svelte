@@ -1,11 +1,14 @@
 <script>
 import {Search} from '@lucide/svelte'
 import Card from '$lib/Card.svelte';
+import { ProgressRing } from '@skeletonlabs/skeleton-svelte';
 let song_name;
 
-let cards= [];
+let cards=false;
+let searching = false
 
 async function searchSong(){
+    searching = true
     let res = await fetch(`api/search?q=${song_name}`)
     res = await res.json();
     console.log(res)
@@ -20,6 +23,7 @@ async function searchSong(){
             'songUrl':elem.id
         })
     });
+    searching = false
     console.log(cards)
     cards = cards
 }
@@ -34,15 +38,17 @@ async function searchSong(){
     </div>
 
     <div class="p-2 h-full place-content-center grid lg:grid-cols-4 md:grid-cols-2 gap-5 sm:grid-cols-1 grid-cols-1">
-        {#await cards}
-           <p>Search...</p>     
-        {:then cards} 
+  
             {#if !!cards}
                 {#each cards as card}
                     <Card imgSrc={card.imgSrc} albumName={card.albumName} artistName={card.artistName} songUrl={card.songUrl} songName={card.songName}></Card>
                 {/each}
+            {:else if searching}
+                <ProgressRing value={null} size="size-14" meterStroke="stroke-tertiary-600-400" trackStroke="stroke-tertiary-50-950" />
+            {:else}
+                <p>Search...</p>   
             {/if}    
-        {/await}
+        
         
     </div>
 </div>
