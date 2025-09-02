@@ -8,23 +8,33 @@
   let playUrl 
   let audioElem;
 
+  let playing = false;
+
   function playSong(){
-    audioElem.src=playUrl;
-    audioElem.play();
+    if(playing){
+      audioElem.pause()
+      playing = false;
+    }else{
+      audioElem.src=playUrl;
+      audioElem.play();
+      playing = true;
+    }
   }
 
 </script>
 
 <div
 
-  class="card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-md divide-y overflow-hidden"
+  class=" card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-md divide-y overflow-hidden"
 >
 
   <header>
-    <h1 class="h4 opacity-50 group-hover:opacity-80 p-2">{songName}</h1>
     <img src={imgSrc} class=" w-full object-cover " alt="banner" />
   </header>
 
+  <article class="space-y-4 p-4">
+    <h1 class="h4 opacity-50 group-hover:opacity-80 ">{songName}</h1>
+  </article>
   <!-- <article class="space-y-4 p-4">
     <div>
       <h2 class="h6">Announcements</h2>
@@ -52,7 +62,7 @@
 
       <!-- <a href="{playUrl}" class="btn preset-outlined-secondary-500" >Play</a> -->
       
-      <button on:click={playSong} class="btn preset-outlined-secondary-500">Play</button>
+      <button on:click={playSong} class="btn preset-outlined-secondary-500">{playing? "Stop" : "Play"}</button>
     </div>
   </footer>
 </div>
