@@ -2,6 +2,11 @@
 
 powered by [`svelte`](https://github.com/sveltejs/).
 
+## Requirements
+
+- [`git`](https://git-scm.com/downloads)
+- [`nodejs`](https://nodejs.org/en)
+
 ## Running Project
 
 
