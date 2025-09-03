@@ -60,7 +60,7 @@
           {/each}
       </select>
 
-      <!-- <a href="{playUrl}" class="btn preset-outlined-secondary-500" >Play</a> -->
+      <a href="{playUrl}" download class="btn preset-outlined-secondary-500" >Download</a>
       
       <button on:click={playSong} class="btn preset-outlined-secondary-500">{playing? "Stop" : "Play"}</button>
     </div>

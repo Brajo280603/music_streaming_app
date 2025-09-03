@@ -1,11 +1,13 @@
 <script>
     import SingleCard from "$lib/SingleCard.svelte";
-    
+    import { decryptUrl } from "$lib/decrypt";
     /** @type {{ data: import('./$types').PageData }} */
     let { data } = $props();
     
     
-    console.log(data)
+    // console.log(data)
+    data['urls'] = decryptUrl(data['encrypted_media_url'])
+    // console.log(data)
     // data = data.res
     
 
@@ -35,7 +37,8 @@
     let card = data
 
 
-    
+
+
 
 </script>
 

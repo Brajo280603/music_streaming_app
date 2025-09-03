@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 
 export async function load({params}) {
-    console.log(params.slug)
+    // console.log(params.slug)
     let id = params.slug;
     let res_text = await fetch(`https://www.jiosaavn.com/api.php?__call=song.getDetails&cc=in&_marker=0%3F_marker%3D0&_format=json&pids=${id}`)
 
@@ -10,7 +10,7 @@ export async function load({params}) {
     res_text = res_text[id]
     // console.log(res_text)
 
-    res_text['urls'] = decryptUrl(res_text['encrypted_media_url'])
+    // res_text['urls'] = decryptUrl(res_text['encrypted_media_url'])
 
     // console.log(res_text)
     return res_text;
