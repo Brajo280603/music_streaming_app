@@ -7,6 +7,8 @@
 - [ ] skipping parts 
 - [ ] pausing
 - [ ] download directly in page
+- [ ] playback queue 
+- [ ] easy addition and removal of songs from playback queue
 
 ## Show in search
 
