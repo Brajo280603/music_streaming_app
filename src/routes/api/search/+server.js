@@ -6,7 +6,7 @@ export async function GET({url}) {
 
         res_text = await res_text.json()
         res_text = res_text['songs']['data']
-
+        
         return new Response(JSON.stringify(res_text));
     }catch(er){
         return new Response(JSON.stringify({}));

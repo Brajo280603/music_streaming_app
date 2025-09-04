@@ -1,5 +1,5 @@
 <script>
-    import SingleCard from "$lib/SingleCard.svelte";
+    import SingleCard from "$lib/SingleSongCard.svelte";
     import { decryptUrl } from "$lib/decrypt";
     /** @type {{ data: import('./$types').PageData }} */
     let { data } = $props();
