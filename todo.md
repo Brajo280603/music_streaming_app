@@ -8,7 +8,7 @@
 ## Improvements
 - [ ] Playlist playback
 - [ ] skipping parts 
-- [ ] pausing
+- [x] pausing
 - [ ] download directly in page
 - [ ] playback queue 
 - [ ] easy addition and removal of songs from playback queue

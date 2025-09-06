@@ -38,7 +38,7 @@
                 return ''; 
             }
     })
-    
+
     $effect(() => {
         if (!!playUrl && audioElem) {
             audioElem.src = playUrl;
@@ -65,9 +65,7 @@
             audioElem.pause();
             console.log(playUrl)
         }else {
-
             console.log(playUrl)
-            audioElem.src = playUrl
             audioElem.play();
         }
     }
