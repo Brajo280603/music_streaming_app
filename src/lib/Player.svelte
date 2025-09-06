@@ -5,7 +5,10 @@
         SkipForward,
         SkipBack,
         Play,
-        Pause
+        Pause,
+        CirclePlay,
+        CirclePause
+
     } from '@lucide/svelte'
 
     import {
@@ -58,6 +61,18 @@
     let progress = $state(0);
     let duration = $state(0);
     let playerState = $state("mini") // two states mini and max
+    let progress_view = $derived.by(()=>{
+            let temp = Math.floor(progress)
+            let minute = Math.floor(temp/60);
+            let second = String(Math.floor(temp-(60*minute))).padStart(2,"0");
+            return minute + ":" +second
+    })
+    let duration_view = $derived.by(()=>{
+            let temp = Math.floor(duration)
+            let minute = Math.floor(temp/60);
+            let second = String(Math.floor(temp-(60*minute))).padStart(2,"0");
+            return minute + ":" +second
+    })
 
     
     function playSong(){
@@ -119,7 +134,9 @@
             </button>
         </div>
         <div class="songMetadata hidden sm:flex" >
-            <div class="albumArt">
+            <div class="albumArt flex items-center justify-center ">
+                
+                <!-- <img src={$currentSong.miniImg} class="  w-auto  {$currentSong.miniImg?"":"hidden"}" alt="banner" /> -->
 
             </div>
             <div class="songInfo flex flex-col justify-center items-center">
@@ -149,14 +166,65 @@
         
     </div>
 {:else}
-    <div class="full-player fixed inset-0">
-        max
-        <div>
-            <input type="range" name="" id="" bind:value={progress} oninput={updateProgress} max={duration}>
+    <div class="full-player inset-0 bg-surface-950 w-screen h-dvh  ">
+        <div class="minimize py-4">
+            <button class="btn" onclick={togglePlayerSize}>
+                <ChevronDown />
+            </button>
         </div>
-        <button class="btn" onclick={togglePlayerSize}>
-            <ChevronDown />
-        </button>
+        <div class="albumArt flex justify-center py-2">
+            <img src={$currentSong.imgSrc} class=" w-8/10 object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
+        </div>
+        
+        <div class="songInfo ">
+            <div class="flex flex-col justify-center items-start px-6 py-4">
+                <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong.songName}</p>
+                <div class="flex items-center justify-between w-full gap-4">
+                    <small class="opacity-60">{!!$currentSong.artistName? $currentSong.artistName:""}</small>
+                    <!-- <small class="opacity-60">{$currentSong.albumName}</small> -->
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="scroller flex flex-col w-full items-center justify-center">
+            <div class="w-8/10 flex flex-col gap-1.5">
+                <input class=" input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
+                <div class="flex justify-between ">
+                    <small class="opacity-60">{progress_view}</small>
+                    <small class="opacity-60">{duration_view}</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="playerBtns w-full  py-8 flex justify-evenly">
+            <button class="btn prevBtn px-2 xs:px-4">
+                <SkipBack size={42} />
+            </button>
+
+            <button class="btn pauseBtn" onclick={playSong}>
+                {#if play_status}
+                    <!-- <Pause/> -->
+                     
+                     <CirclePause size={64} />
+                {:else}
+                    <!-- <Play size={64}/> -->
+                     <CirclePlay size={64} />
+                {/if}
+            </button>
+            
+            <button class="btn nextBtn px-2 xs:px-4">
+                <SkipForward size={42} />
+            </button>
+        </div>
+
+
+
+
+        
+        
+       
     </div>
 {/if}
 

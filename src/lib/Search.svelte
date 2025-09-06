@@ -27,6 +27,7 @@ async function searchSong(){
                 'albumName':elem.album,
                 'artistName':elem.more_info.primary_artists,
                 'imgSrc':elem.image.replace('50x50','500x500'),
+                'miniImg':elem.image,
                 'songUrl':elem.id
             })
         });
@@ -43,7 +44,7 @@ async function searchSong(){
 
 
 <div class="w-screen flex flex-col items-center justify-center gap-5 relative">
-    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 sticky top-4 bg-surface-900 z-500">
+    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 sticky top-4 bg-surface-900 z-100">
         <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
         <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
             <Search />

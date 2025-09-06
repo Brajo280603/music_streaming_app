@@ -2,12 +2,14 @@
 ## Fixes
 - [x] Not showing loading after first search
 - [ ] design ui for mobile and tablet.
-- [ ] design the mini player 
-- [ ] design the max player
+- [x] design the mini player 
+- [x] design the max player for phone
+- [ ] design the max player for desktop
+- [ ] loading progress ring is not centered
 
 ## Improvements
 - [ ] Playlist playback
-- [ ] skipping parts 
+- [x] skipping parts 
 - [x] pausing
 - [ ] download directly in page
 - [ ] playback queue 

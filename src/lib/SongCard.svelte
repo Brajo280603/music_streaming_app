@@ -34,6 +34,7 @@
             'albumName':data.album,
             'artistName':data.primary_artists,
             'imgSrc':data.image.replace('150x150','500x500'),
+            'miniImg':data.image.replace('150x150','50x50'),
             'quality_option':quality_options
         }
 
