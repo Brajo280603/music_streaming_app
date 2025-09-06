@@ -1,6 +1,9 @@
 # Todo in this app
 ## Fixes
 - [x] Not showing loading after first search
+- [ ] design ui for mobile and tablet.
+- [ ] design the mini player 
+- [ ] design the max player
 
 ## Improvements
 - [ ] Playlist playback

@@ -16,6 +16,11 @@
     } from '$lib/stores/player'
 
 
+    // $effect(() => {
+    //     if (quality_option?.length > 0) {
+    //         quality_option = $currentSong.quality_option;
+    //     }
+    // });
 
 
 
@@ -27,15 +32,20 @@
       
     let playUrl = $derived.by(()=>{
             if (quality_option?.length > 0) {
-                audioElem.src = quality_option[0].url;
-                audioElem.load();
-            
-                audioElem.play();
+
                 return quality_option[0].url;
             } else {
                 return ''; 
             }
     })
+    
+    $effect(() => {
+        if (!!playUrl && audioElem) {
+            audioElem.src = playUrl;
+            audioElem.load();
+            audioElem.play();
+        }
+    });
 
 
 
