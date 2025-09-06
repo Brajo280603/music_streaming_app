@@ -98,9 +98,11 @@
 
 
 {#if playerState == "mini"}
-    <div class="mini-player flex items-center h-18 w-full justify-between gap-5 px-4 bg-surface-900" >
-        <div class="playerBtns">
-            <button class="btn prevBtn">
+    
+    <input class="input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
+    <div class="mini-player flex items-center h-18 w-full justify-between gap-5 px-2 xs:px-4 bg-surface-900" >
+        <div class="playerBtns ">
+            <button class="btn prevBtn px-2 xs:px-4">
                 <SkipBack />
             </button>
 
@@ -112,24 +114,25 @@
                 {/if}
             </button>
             
-            <button class="btn nextBtn">
+            <button class="btn nextBtn px-2 xs:px-4">
                 <SkipForward />
             </button>
         </div>
-        <div class="songMetadata">
+        <div class="songMetadata hidden sm:flex" >
             <div class="albumArt">
 
             </div>
-            <div class="songInfo">
-                <p class="h6 opacity-50 group-hover:opacity-80 p-2">{@html $currentSong.songName}</p>
-
+            <div class="songInfo flex flex-col justify-center items-center">
+                <p class="h6 opacity-50 group-hover:opacity-80 p-0">{@html $currentSong.songName}</p>
+                <div class="flex items-center justify-between w-full gap-4">
+                    <small class="opacity-60">{!!$currentSong.artistName? "By " + $currentSong.artistName:""}</small>
+                    <small class="opacity-60">{$currentSong.albumName}</small>
+                </div>
             </div>
         </div>
 
         <div class="flex gap-5 items-center ">
-            <div class="w-64">
-                <input class="input" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
-            </div>
+            
 
             <div>
                 <select class="select" bind:value={playUrl} bind:this={selectQuality}>
@@ -167,3 +170,7 @@
     onplay={handlePlayState}
     onpause={handlePlayState}
 ></audio>
+
+
+<style>
+</style>

@@ -42,8 +42,8 @@ async function searchSong(){
 </script>
 
 
-<div class="w-screen flex flex-col items-center justify-center p-4 gap-5">
-    <div class="input-group grid-cols-[1fr_auto] md:w-1/2">
+<div class="w-screen flex flex-col items-center justify-center gap-5 relative">
+    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 sticky top-4 bg-surface-900 z-500">
         <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
         <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
             <Search />
@@ -61,9 +61,9 @@ async function searchSong(){
             {:else}
                 <p>Search...</p>
             {/if}    
-            {#if !!albumCards}
+            <!-- {#if !!albumCards}
 
-            {/if}
+            {/if} -->
         {/if}
         
 
