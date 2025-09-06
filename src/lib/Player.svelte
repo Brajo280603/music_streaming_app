@@ -16,17 +16,32 @@
     } from '$lib/stores/player'
 
 
-$effect(() => {
+
+
+
+    let quality_option = $derived.by(()=>{
         if ($currentSong && $currentSong.quality_option) {
-            quality_option = $currentSong.quality_option;
+            return $currentSong.quality_option;
         }
-    });
+    })
+      
+    let playUrl = $derived.by(()=>{
+            if (quality_option?.length > 0) {
+                audioElem.src = quality_option[0].url;
+                audioElem.load();
+            
+                audioElem.play();
+                return quality_option[0].url;
+            } else {
+                return ''; 
+            }
+    })
+
 
 
     
+    
 
-    let playUrl = $state(null)
-    let quality_option = $state([])
     let audioElem = $state(null)
     let selectQuality = $state(null)
     let play_status = $state(false);
