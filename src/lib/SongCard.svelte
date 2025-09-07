@@ -5,11 +5,51 @@
     export let albumName = 'Untitled'
     export let songUrl = ''
 
+    import { decryptUrl } from "$lib/decrypt";
+        import {
+        currentSong,
+        setCurrentSong
+    } from '$lib/stores/player'
+
+
+    // creating new
+    async function playSong(){
+        let res = await fetch(`api/songDetails?id=${songUrl}`)
+        res = await res.json();
+        console.log(res)
+        let data = res;
+        data['urls'] = decryptUrl(data['encrypted_media_url'])
+
+        let quality_options = []
+
+        for (let prop in data.urls){
+            quality_options.push({
+                url:data.urls[prop],
+                type:prop
+            })    
+        }
+
+        data = {
+            'songName':data.song,
+            'albumName':data.album,
+            'artistName':data.primary_artists,
+            'imgSrc':data.image.replace('150x150','500x500'),
+            'miniImg':data.image.replace('150x150','50x50'),
+            'quality_option':quality_options
+        }
+
+        setCurrentSong(data);
+
+    }
+
+
+
 </script>
 
 <a
-  href="{"song/"+songUrl}"
-  class="card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-md divide-y overflow-hidden"
+  href=""
+  onclick={playSong}
+  class="card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-92 divide-y overflow-hidden "
 >
 
   <header>
@@ -22,7 +62,7 @@
   </article>
 
   <footer class="flex items-center justify-between gap-4 p-4">
-    <small class="opacity-60">By {artistName}</small>
+    <small class="opacity-60">{artistName}</small>
     <small class="opacity-60">{albumName}</small>
   </footer>
 </a>

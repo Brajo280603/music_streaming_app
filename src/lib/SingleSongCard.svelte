@@ -58,7 +58,7 @@
           {#each quality_option as quality }
               <option value="{quality.url}">{quality.type}</option>
           {/each}
-      </select>
+        </select>
 
       <a href="{playUrl}" download class="btn preset-outlined-secondary-500" >Download</a>
       
