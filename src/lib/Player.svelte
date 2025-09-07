@@ -53,7 +53,7 @@
     let play_status = $state(false);
     let progress = $state(0);
     let duration = $state(0);
-    let playerState = $state("max") // two states mini and max
+    let playerState = $state("mini") // two states mini and max
     let progress_view = $derived.by(()=>{
             let temp = Math.floor(progress)
             let minute = Math.floor(temp/60);
