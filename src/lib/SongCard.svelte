@@ -62,7 +62,7 @@
   </article>
 
   <footer class="flex items-center justify-between gap-4 p-4">
-    <small class="opacity-60">By {artistName}</small>
+    <small class="opacity-60">{artistName}</small>
     <small class="opacity-60">{albumName}</small>
   </footer>
 </a>

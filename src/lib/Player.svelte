@@ -19,13 +19,6 @@
     } from '$lib/stores/player'
 
 
-    // $effect(() => {
-    //     if (quality_option?.length > 0) {
-    //         quality_option = $currentSong.quality_option;
-    //     }
-    // });
-
-
 
     let quality_option = $derived.by(()=>{
         if ($currentSong && $currentSong.quality_option) {
@@ -60,7 +53,7 @@
     let play_status = $state(false);
     let progress = $state(0);
     let duration = $state(0);
-    let playerState = $state("mini") // two states mini and max
+    let playerState = $state("max") // two states mini and max
     let progress_view = $derived.by(()=>{
             let temp = Math.floor(progress)
             let minute = Math.floor(temp/60);
@@ -142,7 +135,7 @@
             <div class="songInfo flex flex-col justify-center items-center">
                 <p class="h6 opacity-50 group-hover:opacity-80 p-0">{@html $currentSong.songName}</p>
                 <div class="flex items-center justify-between w-full gap-4">
-                    <small class="opacity-60">{!!$currentSong.artistName? "By " + $currentSong.artistName:""}</small>
+                    <small class="opacity-60">{$currentSong.artistName}</small>
                     <small class="opacity-60">{$currentSong.albumName}</small>
                 </div>
             </div>
@@ -166,17 +159,17 @@
         
     </div>
 {:else}
-    <div class="full-player inset-0 bg-surface-950 w-screen h-dvh  ">
-        <div class="minimize py-4">
+    <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
+        <div class="minimize py-4 h-fit ">
             <button class="btn" onclick={togglePlayerSize}>
                 <ChevronDown />
             </button>
         </div>
-        <div class="albumArt flex justify-center py-2">
-            <img src={$currentSong.imgSrc} class=" w-8/10 object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
+        <div class="albumArt flex justify-center py-2 grow items-center">
+            <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
         </div>
         
-        <div class="songInfo ">
+        <div class="songInfo mt-auto">
             <div class="flex flex-col justify-center items-start px-6 py-4">
                 <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong.songName}</p>
                 <div class="flex items-center justify-between w-full gap-4">
@@ -187,7 +180,7 @@
             
         </div>
 
-        <div class="scroller flex flex-col w-full items-center justify-center">
+        <div class="scroller flex flex-col w-full items-center justify-center justify-self-end ">
             <div class="w-8/10 flex flex-col gap-1.5">
                 <input class=" input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
                 <div class="flex justify-between ">
@@ -198,7 +191,7 @@
         </div>
 
 
-        <div class="playerBtns w-full  py-8 flex justify-evenly">
+        <div class="playerBtns w-full flex justify-evenly justify-self-end">
             <button class="btn prevBtn px-2 xs:px-4">
                 <SkipBack size={42} />
             </button>
@@ -217,6 +210,10 @@
             <button class="btn nextBtn px-2 xs:px-4">
                 <SkipForward size={42} />
             </button>
+        </div>
+
+        <div class="emptyForDetails w-full h-24">
+
         </div>
 
 

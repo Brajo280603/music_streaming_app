@@ -43,8 +43,8 @@ async function searchSong(){
 </script>
 
 
-<div class="w-screen flex flex-col items-center justify-center gap-5 relative">
-    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 sticky top-4 bg-surface-900 z-100">
+<div class="w-screen h-dvh flex flex-col items-center  gap-5  ">
+    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 fixed top-4 bg-surface-900 z-100">
         <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
         <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
             <Search />
@@ -53,14 +53,23 @@ async function searchSong(){
 
     
         {#if searching}
-            <ProgressRing value={null} size="size-14" meterStroke="stroke-tertiary-600-400" trackStroke="stroke-tertiary-50-950" />
+        <div class="grow flex items-center ">
+            <ProgressRing classes="-mt-48" value={null} size="size-24" meterStroke="stroke-tertiary-600-400" trackStroke="stroke-tertiary-50-950" />
+        </div>
         {:else if error}
-            <p class="h2 text-bold">Error! Please Try Again..</p>
+            <div class="py-24">
+                <p class="h2 text-bold">Error! Please Try Again..</p>
+            </div>
         {:else}
             {#if !!songCards}
+            <div class="pt-14 ">
                 <SongList songCards={songCards}></SongList>
+            </div>
+                
             {:else}
-                <p>Search...</p>
+                <div class="py-24">
+                    <p>Search...</p>
+                </div>
             {/if}    
             <!-- {#if !!albumCards}
 

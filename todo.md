@@ -4,8 +4,8 @@
 - [ ] design ui for mobile and tablet.
 - [x] design the mini player 
 - [x] design the max player for phone
-- [ ] design the max player for desktop
-- [ ] loading progress ring is not centered
+- [ ] design the max player for desktop (fixed needs new design)
+- [x] loading progress ring is not centered
 
 ## Improvements
 - [ ] Playlist playback
