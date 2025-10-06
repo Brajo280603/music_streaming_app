@@ -7,6 +7,7 @@ import {
     playerSize
 } from '$lib/stores/player'
 
+import AlbumList from './AlbumList.svelte';
 
 let song_name;
 
@@ -15,17 +16,21 @@ let searching = false
 let error = false;
 let albumCards = false;
 
-async function searchSong(){
+
+async function search(){
     try{
         error = false;
         searching = true
+
         songCards = []
+        albumCards = []
+
         let res = await fetch(`api/search?q=${song_name}`)
         res = await res.json();
         console.log(res)
-        res = res['songs']['data']
 
-        res?.forEach(elem => {
+        let songs = res['songs']['data']
+        songs?.forEach(elem => {
             songCards.push({
                 'songName':elem.title,
                 'albumName':elem.album,
@@ -35,15 +40,30 @@ async function searchSong(){
                 'songUrl':elem.id
             })
         });
+
+        let albums = res['albums']['data']
+        albums?.forEach(elem => {
+            albumCards.push({
+                'albumName':elem.title,
+                'imgSrc':elem.image.replace('50x50','500x500'),
+                'miniImg':elem.image,
+                'albumUrl':elem.id
+            })
+        });
+
+
         searching = false
-        console.log(songCards)
         songCards = songCards
+        albumCards = albumCards
+        console.log(albumCards)
     }catch(err){
+        console.log(err)
         searching = false;
         error = true;
     }
     
 }
+
 </script>
 
 
@@ -69,18 +89,21 @@ async function searchSong(){
             </div>
         {:else}
             {#if !!songCards}
-            <div class="pt-18 ">
-                <SongList songCards={songCards}></SongList>
-            </div>
-                
-            {:else}
+                <div class="pt-14 ">
+                    <SongList songCards={songCards}></SongList>
+                </div>
+            {/if}
+            {#if !songCards && !albumCards}
                 <div class="py-24">
                     <p>Search...</p>
                 </div>
             {/if}    
-            <!-- {#if !!albumCards}
 
-            {/if} -->
+            {#if !!albumCards}
+                <div class="pt-14 ">
+                    <AlbumList AlbumCards={albumCards}></AlbumList>
+                </div>
+            {/if}
         {/if}
         
 
