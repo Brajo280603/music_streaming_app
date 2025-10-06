@@ -7,8 +7,9 @@
         Play,
         Pause,
         CirclePlay,
-        CirclePause
-
+        CirclePause,
+        X,
+        ListMusic
     } from '@lucide/svelte'
 
     import {
@@ -16,6 +17,7 @@
         queue,
         isPlaying,
         setIsPlaying,
+        playerSize,
 		setPlayerSize
     } from '$lib/stores/player'
 
@@ -54,7 +56,6 @@
     let play_status = $state(false);
     let progress = $state(0);
     let duration = $state(0);
-    let playerState = $state("mini") // two states mini and max
     let progress_view = $derived.by(()=>{
             let temp = Math.floor(progress)
             let minute = Math.floor(temp/60);
@@ -82,14 +83,6 @@
 
     }
 
-
-    function togglePlayerSize(){
-        
-        playerState = playerState == "mini" ? "max" : "mini";
-
-        setPlayerSize(playerState);
-    }
-
     function setProgress(e){
         console.log(e);
         audioElem.currentTime = e.target.value
@@ -108,7 +101,7 @@
 </script>
 
 
-{#if playerState == "mini"}
+{#if $playerSize == "mini"}
     
     <input class="input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
     <div class="mini-player flex items-center h-18 w-full justify-between gap-5 px-2 xs:px-4 bg-surface-900" >
@@ -155,19 +148,24 @@
                 </select>
             </div>
 
-            <button class="btn toggleMinMax" onclick={togglePlayerSize}>
+            <button class="btn toggleMinMax" onclick={()=>{setPlayerSize("max")}}>
                 <ChevronUp />
             </button>    
         </div>
         
     </div>
-{:else}
+{:else if $playerSize == "max"}
     <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
-        <div class="minimize py-4 h-fit ">
-            <button class="btn" onclick={togglePlayerSize}>
+        <div class="py-4 h-fit flex justify-between w-full">
+            <button class="btn" onclick={()=>{setPlayerSize("mini")}}>
                 <ChevronDown />
             </button>
+
+            <button class="btn" onclick={()=>{setPlayerSize("queue")}}>
+                <ListMusic />
+            </button>
         </div>
+        <hr class="hr">
         <div class="albumArt flex justify-center py-2 grow items-center">
             <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
         </div>
@@ -225,6 +223,19 @@
         
         
        
+    </div>
+
+{:else if $playerSize == "queue"}
+    <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
+        <div class="minimize py-4 h-fit flex w-full justify-end">
+            <button class="btn" onclick={()=>{setPlayerSize("max")}}>
+                <X/>
+            </button>
+        </div>
+        <hr class="hr">
+        <div class="">
+
+        </div>
     </div>
 {/if}
 
