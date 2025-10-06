@@ -6,8 +6,9 @@
     export let songUrl = ''
 
     import { decryptUrl } from "$lib/decrypt";
-        import {
+    import {
         addAndPlayQueue,
+        addSongToQueue
     } from '$lib/stores/player'
 
     import {
