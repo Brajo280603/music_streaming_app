@@ -15,7 +15,8 @@
         currentSong,
         queue,
         isPlaying,
-        setIsPlaying
+        setIsPlaying,
+		setPlayerSize
     } from '$lib/stores/player'
 
 
@@ -85,6 +86,8 @@
     function togglePlayerSize(){
         
         playerState = playerState == "mini" ? "max" : "mini";
+
+        setPlayerSize(playerState);
     }
 
     function setProgress(e){

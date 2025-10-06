@@ -3,6 +3,10 @@ import {Search} from '@lucide/svelte'
 
 import { ProgressRing } from '@skeletonlabs/skeleton-svelte';
 import SongList from './SongList.svelte';
+import {
+    playerSize
+} from '$lib/stores/player'
+
 
 let song_name;
 
@@ -44,7 +48,7 @@ async function searchSong(){
 
 
 <div class="w-screen h-dvh flex flex-col items-center  gap-5  ">
-    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 fixed top-4 bg-surface-900 z-100">
+    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 fixed top-4 bg-surface-900 z-100 {$playerSize != "mini" ? "hidden":""}">
         <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
         <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
             <Search />

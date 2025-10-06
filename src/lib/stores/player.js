@@ -3,6 +3,7 @@ import { writable } from "svelte/store";
 export const currentSong = writable({})
 export const queue = writable([])
 export const isPlaying = writable(false)
+export const playerSize = writable('mini')
 
 export function setCurrentSong(songDetails){
     currentSong.set(songDetails)
@@ -27,3 +28,9 @@ export function setQueue(type,data){
 export function setIsPlaying(val){
     isPlaying.set(val);
 }
+
+
+export function setPlayerSize(val){
+    playerSize.set(val);
+}
+
