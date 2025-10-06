@@ -13,11 +13,19 @@ export function setQueue(type,data){
     let temp_queue = $queue
     switch(type){
         case "insert": {
-            temp_queue.push(data);
+            if(!!data){
+                temp_queue.push(data);
+            }
             break;
         }
-        case "delete": {
-            temp_queue.pop();
+        case "delete": { //basically delete_at index will need to be provided
+            if(!!data){
+                temp_queue.splice(data, 1);
+            }
+            break;
+        }
+        case "clear": { 
+            temp_queue = []
             break;
         }
     }
