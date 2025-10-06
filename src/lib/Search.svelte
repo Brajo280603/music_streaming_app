@@ -48,12 +48,15 @@ async function searchSong(){
 
 
 <div class="w-screen h-dvh flex flex-col items-center  gap-5  ">
-    <div class="input-group grid-cols-[1fr_auto] md:w-1/2 fixed top-4 bg-surface-900 z-100 {$playerSize != "mini" ? "hidden":""}">
-        <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
-        <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
-            <Search />
-        </button>
+    <div class="fixed top-0 py-5 flex justify-center w-full glass">
+        <div class="input-group grid-cols-[1fr_auto] md:w-1/2 bg-surface-900 z-100 {$playerSize != "mini" ? "hidden":""}">
+            <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
+            <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
+                <Search />
+            </button>
+        </div>
     </div>
+
 
     
         {#if searching}
@@ -66,7 +69,7 @@ async function searchSong(){
             </div>
         {:else}
             {#if !!songCards}
-            <div class="pt-14 ">
+            <div class="pt-18 ">
                 <SongList songCards={songCards}></SongList>
             </div>
                 
@@ -82,3 +85,70 @@ async function searchSong(){
         
 
 </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <defs>
+    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.001 0.001" numOctaves="2" seed="92" result="noise" />
+      <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+      <feDisplacementMap in="SourceGraphic" in2="blurred" scale="92" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
+<style>
+
+.liquid-glass {
+  /* width: 300px;
+  height: 200px; */
+  /* border-radius: 56.00000000000001px; */
+  /* position: relative; */
+  isolation: isolate;
+  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  border: none;
+  background: none;
+  /* padding: 0;
+  margin: 0; */
+  text-decoration: none;
+  /* cursor: pointer; */
+}
+
+.liquid-glass:focus {
+  outline: none;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* border-radius: 56.00000000000001px; */
+  box-shadow: inset 0 0 0px -20px #000000;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* border-radius: 56.00000000000001px; */
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  filter: url(#glass-distortion);
+  -webkit-filter: url(#glass-distortion);
+}
+
+.glass{
+    background: rgba(255, 255, 255, 0);
+    /* border-radius: 16px; */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+}
+
+</style>
