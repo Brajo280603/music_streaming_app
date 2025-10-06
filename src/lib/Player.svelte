@@ -9,7 +9,8 @@
         CirclePlay,
         CirclePause,
         X,
-        ListMusic
+        ListMusic,
+        ListX
     } from '@lucide/svelte'
 
     import {
@@ -18,7 +19,14 @@
         isPlaying,
         setIsPlaying,
         playerSize,
-		setPlayerSize
+		setPlayerSize,
+        currentPlayingIndex,
+        setCurrentPlayingIndex,
+        playFromQueue,
+        deleteFromQueue,
+        playPrevOnQueue,
+        playNextOnQueue,
+        
     } from '$lib/stores/player'
 
 
@@ -43,6 +51,9 @@
             audioElem.src = playUrl;
             audioElem.load();
             audioElem.play();
+        }else if(audioElem){
+            audioElem.pause();
+            audioElem.src = ""
         }
     });
 
@@ -79,8 +90,9 @@
             audioElem.play();
         }
     }
-    function playNextSong(){
 
+    function handleEndState(){
+        playNextOnQueue()
     }
 
     function setProgress(e){
@@ -98,6 +110,11 @@
         setIsPlaying(play_status);
     }
 
+
+
+
+
+
 </script>
 
 
@@ -106,7 +123,7 @@
     <input class="input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
     <div class="mini-player flex items-center h-18 w-full justify-between gap-5 px-2 xs:px-4 bg-surface-900" >
         <div class="playerBtns ">
-            <button class="btn prevBtn px-2 xs:px-4">
+            <button class="btn prevBtn px-2 xs:px-4" onclick={playPrevOnQueue}>
                 <SkipBack />
             </button>
 
@@ -118,7 +135,7 @@
                 {/if}
             </button>
             
-            <button class="btn nextBtn px-2 xs:px-4">
+            <button class="btn nextBtn px-2 xs:px-4" onclick={playNextOnQueue}>
                 <SkipForward />
             </button>
         </div>
@@ -193,7 +210,7 @@
 
 
         <div class="playerBtns w-full flex justify-evenly justify-self-end">
-            <button class="btn prevBtn px-2 xs:px-4">
+            <button class="btn prevBtn px-2 xs:px-4" onclick={playPrevOnQueue}>
                 <SkipBack size={42} />
             </button>
 
@@ -208,7 +225,7 @@
                 {/if}
             </button>
             
-            <button class="btn nextBtn px-2 xs:px-4">
+            <button class="btn nextBtn px-2 xs:px-4" onclick={playNextOnQueue}>
                 <SkipForward size={42} />
             </button>
         </div>
@@ -233,8 +250,35 @@
             </button>
         </div>
         <hr class="hr">
-        <div class="">
-
+        <div class="queue">
+            <ul class="px-2 py-2 flex flex-col gap-2">
+            {#each $queue as item,index}
+                <li class="p-2  {index == $currentPlayingIndex?"border-2 border-surface-500 rounded-lg":""}">
+                    <div class="flex justify-between h-12 items-center">
+                        <button onclick="{()=>{playFromQueue(index)}}" >
+                            <div class="flex gap-2">
+                                <img class="rounded-sm" src="{item.miniImg}" alt="">
+                                <div class="flex flex-col w-64 ">
+                                    <p class="truncate w-full text-left">
+                                        {@html item.songName} 
+                                    </p>
+                                    <p class="text-xs font-light truncate w-full text-left">
+                                        {item.artistName}
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="{()=>{
+                            deleteFromQueue(index)
+                        }}">
+                            <ListX />
+                        </button>
+                    </div>
+                </li>
+                
+            {/each}
+            </ul>
         </div>
     </div>
 {/if}
@@ -243,7 +287,7 @@
 
 <audio 
     bind:this={audioElem} 
-    onended={playNextSong}
+    onended={handleEndState}
     onloadedmetadata={()=>{duration = audioElem.duration}}
     ontimeupdate={handleTimeUpdate}
     onplay={handlePlayState}
