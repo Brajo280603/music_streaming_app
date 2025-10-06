@@ -7,15 +7,26 @@
         Play,
         Pause,
         CirclePlay,
-        CirclePause
-
+        CirclePause,
+        X,
+        ListMusic,
+        ListX
     } from '@lucide/svelte'
 
     import {
         currentSong,
         queue,
         isPlaying,
-        setIsPlaying
+        setIsPlaying,
+        playerSize,
+		setPlayerSize,
+        currentPlayingIndex,
+        setCurrentPlayingIndex,
+        playFromQueue,
+        deleteFromQueue,
+        playPrevOnQueue,
+        playNextOnQueue,
+        
     } from '$lib/stores/player'
 
 
@@ -40,6 +51,9 @@
             audioElem.src = playUrl;
             audioElem.load();
             audioElem.play();
+        }else if(audioElem){
+            audioElem.pause();
+            audioElem.src = ""
         }
     });
 
@@ -53,7 +67,6 @@
     let play_status = $state(false);
     let progress = $state(0);
     let duration = $state(0);
-    let playerState = $state("mini") // two states mini and max
     let progress_view = $derived.by(()=>{
             let temp = Math.floor(progress)
             let minute = Math.floor(temp/60);
@@ -77,14 +90,9 @@
             audioElem.play();
         }
     }
-    function playNextSong(){
 
-    }
-
-
-    function togglePlayerSize(){
-        
-        playerState = playerState == "mini" ? "max" : "mini";
+    function handleEndState(){
+        playNextOnQueue()
     }
 
     function setProgress(e){
@@ -102,15 +110,20 @@
         setIsPlaying(play_status);
     }
 
+
+
+
+
+
 </script>
 
 
-{#if playerState == "mini"}
+{#if $playerSize == "mini"}
     
     <input class="input m-0 p-0 h-0.5 hover:h-1 border-0 cursor-pointer" type="range" name="" id="" bind:value={progress} oninput={setProgress} max={duration}>
     <div class="mini-player flex items-center h-18 w-full justify-between gap-5 px-2 xs:px-4 bg-surface-900" >
         <div class="playerBtns ">
-            <button class="btn prevBtn px-2 xs:px-4">
+            <button class="btn prevBtn px-2 xs:px-4" onclick={playPrevOnQueue}>
                 <SkipBack />
             </button>
 
@@ -122,7 +135,7 @@
                 {/if}
             </button>
             
-            <button class="btn nextBtn px-2 xs:px-4">
+            <button class="btn nextBtn px-2 xs:px-4" onclick={playNextOnQueue}>
                 <SkipForward />
             </button>
         </div>
@@ -152,19 +165,24 @@
                 </select>
             </div>
 
-            <button class="btn toggleMinMax" onclick={togglePlayerSize}>
+            <button class="btn toggleMinMax" onclick={()=>{setPlayerSize("max")}}>
                 <ChevronUp />
             </button>    
         </div>
         
     </div>
-{:else}
+{:else if $playerSize == "max"}
     <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
-        <div class="minimize py-4 h-fit ">
-            <button class="btn" onclick={togglePlayerSize}>
+        <div class="py-4 h-fit flex justify-between w-full">
+            <button class="btn" onclick={()=>{setPlayerSize("mini")}}>
                 <ChevronDown />
             </button>
+
+            <button class="btn" onclick={()=>{setPlayerSize("queue")}}>
+                <ListMusic />
+            </button>
         </div>
+        <hr class="hr">
         <div class="albumArt flex justify-center py-2 grow items-center">
             <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
         </div>
@@ -192,7 +210,7 @@
 
 
         <div class="playerBtns w-full flex justify-evenly justify-self-end">
-            <button class="btn prevBtn px-2 xs:px-4">
+            <button class="btn prevBtn px-2 xs:px-4" onclick={playPrevOnQueue}>
                 <SkipBack size={42} />
             </button>
 
@@ -207,7 +225,7 @@
                 {/if}
             </button>
             
-            <button class="btn nextBtn px-2 xs:px-4">
+            <button class="btn nextBtn px-2 xs:px-4" onclick={playNextOnQueue}>
                 <SkipForward size={42} />
             </button>
         </div>
@@ -223,13 +241,53 @@
         
        
     </div>
+
+{:else if $playerSize == "queue"}
+    <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
+        <div class="minimize py-4 h-fit flex w-full justify-end">
+            <button class="btn" onclick={()=>{setPlayerSize("max")}}>
+                <X/>
+            </button>
+        </div>
+        <hr class="hr">
+        <div class="queue">
+            <ul class="px-2 py-2 flex flex-col gap-2">
+            {#each $queue as item,index}
+                <li class="p-2  {index == $currentPlayingIndex?"border-2 border-surface-500 rounded-lg":""}">
+                    <div class="flex justify-between h-12 items-center">
+                        <button onclick="{()=>{playFromQueue(index)}}" >
+                            <div class="flex gap-2">
+                                <img class="rounded-sm" src="{item.miniImg}" alt="">
+                                <div class="flex flex-col w-64 ">
+                                    <p class="truncate w-full text-left">
+                                        {@html item.songName} 
+                                    </p>
+                                    <p class="text-xs font-light truncate w-full text-left">
+                                        {item.artistName}
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="{()=>{
+                            deleteFromQueue(index)
+                        }}">
+                            <ListX />
+                        </button>
+                    </div>
+                </li>
+                
+            {/each}
+            </ul>
+        </div>
+    </div>
 {/if}
 
 
 
 <audio 
     bind:this={audioElem} 
-    onended={playNextSong}
+    onended={handleEndState}
     onloadedmetadata={()=>{duration = audioElem.duration}}
     ontimeupdate={handleTimeUpdate}
     onplay={handlePlayState}
