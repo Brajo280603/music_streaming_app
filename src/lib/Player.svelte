@@ -184,12 +184,12 @@
         </div>
         <hr class="hr">
         <div class="albumArt flex justify-center py-2 grow items-center">
-            <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
+            <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong?.imgSrc?"" : "hidden"} " alt="banner" />
         </div>
         
         <div class="songInfo mt-auto">
             <div class="flex flex-col justify-center items-start px-6 py-4">
-                <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong.songName}</p>
+                <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong?.songName}</p>
                 <div class="flex items-center justify-between w-full gap-4">
                     <small class="opacity-60">{!!$currentSong.artistName? $currentSong.artistName:""}</small>
                     <!-- <small class="opacity-60">{$currentSong.albumName}</small> -->
