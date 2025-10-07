@@ -18,6 +18,7 @@
 - [x] easy addition and removal of songs from playback queue
 - [ ] changing positions of songs in playback queue
 - [ ] song suggestions
+- [ ] save song queue on local storage
 
 ## Show in search
 
