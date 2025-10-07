@@ -238,12 +238,21 @@ export function deleteFromQueue(index){
         setQueue("delete",index);
         let temp_index = get(currentPlayingIndex)
         let temp_queue = get(queue)
-        if(index == temp_queue.length){
+        if(index == temp_queue.length && index == temp_index){
             setCurrentPlayingIndex(0);
             setCurrentSong({})
         }
         if(index == temp_index){
-            playFromQueue(index);
+            if(temp_queue.length != 0){
+                playFromQueue(index);
+            }else{
+                setCurrentPlayingIndex(0)
+                setCurrentSong({})
+            }
+        }
+
+        if(index < temp_index){
+            setCurrentPlayingIndex(temp_index - 1);
         }
 }
 

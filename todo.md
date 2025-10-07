@@ -17,6 +17,7 @@
 - [x] playback queue 
 - [x] easy addition and removal of songs from playback queue
 - [ ] changing positions of songs in playback queue
+- [ ] song suggestions
 
 ## Show in search
 
