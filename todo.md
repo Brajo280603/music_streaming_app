@@ -8,6 +8,7 @@
 - [x] loading progress ring is not centered
 - [ ] search on enter key 
 - [ ] bug on same song playing one after another.
+- [ ] bug on no active currentplayingsong
 
 ## Improvements
 - [ ] Playlist playback
