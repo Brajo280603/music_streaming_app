@@ -2,6 +2,8 @@
 
 powered by [`svelte`](https://github.com/sveltejs/).
 
+[Link to Hosted version](https://music-streaming-app-coral.vercel.app/)
+
 ## Requirements
 
 - [`git`](https://git-scm.com/downloads)
