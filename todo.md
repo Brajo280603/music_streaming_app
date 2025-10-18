@@ -8,6 +8,7 @@
 - [x] loading progress ring is not centered
 - [ ] search on enter key 
 - [ ] bug on same song playing one after another.
+- [ ] bug on no active currentplayingsong
 
 ## Improvements
 - [ ] Playlist playback
@@ -18,6 +19,7 @@
 - [x] easy addition and removal of songs from playback queue
 - [ ] changing positions of songs in playback queue
 - [ ] song suggestions
+- [ ] save song queue on local storage
 
 ## Show in search
 
