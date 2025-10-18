@@ -165,6 +165,10 @@
                 </select>
             </div>
 
+            <button class="btn hidden sm:block" onclick={()=>{setPlayerSize("queue")}}>
+                <ListMusic />
+            </button>
+
             <button class="btn toggleMinMax" onclick={()=>{setPlayerSize("max")}}>
                 <ChevronUp />
             </button>    
@@ -184,12 +188,12 @@
         </div>
         <hr class="hr">
         <div class="albumArt flex justify-center py-2 grow items-center">
-            <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong.imgSrc?"" : "hidden"} " alt="banner" />
+            <img src={$currentSong.imgSrc} class=" size-92  object-cover {$currentSong?.imgSrc?"" : "hidden"} " alt="banner" />
         </div>
         
         <div class="songInfo mt-auto">
             <div class="flex flex-col justify-center items-start px-6 py-4">
-                <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong.songName}</p>
+                <p class="h6 opacity-50 group-hover:opacity-80 truncate w-full text-2xl">{@html $currentSong?.songName}</p>
                 <div class="flex items-center justify-between w-full gap-4">
                     <small class="opacity-60">{!!$currentSong.artistName? $currentSong.artistName:""}</small>
                     <!-- <small class="opacity-60">{$currentSong.albumName}</small> -->
@@ -244,13 +248,16 @@
 
 {:else if $playerSize == "queue"}
     <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
-        <div class="minimize py-4 h-fit flex w-full justify-end">
+        <div class="minimize py-4 h-fit flex w-full justify-between">
+            <button class="btn" onclick={()=>{setPlayerSize("mini")}}>
+                <ChevronDown />
+            </button>
             <button class="btn" onclick={()=>{setPlayerSize("max")}}>
                 <X/>
             </button>
         </div>
         <hr class="hr">
-        <div class="queue">
+        <div class="queue overflow-y-auto">
             <ul class="px-2 py-2 flex flex-col gap-2">
             {#each $queue as item,index}
                 <li class="p-2  {index == $currentPlayingIndex?"border-2 border-surface-500 rounded-lg":""}">
