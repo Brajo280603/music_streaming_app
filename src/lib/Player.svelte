@@ -257,7 +257,7 @@
             </button>
         </div>
         <hr class="hr">
-        <div class="queue">
+        <div class="queue overflow-y-auto">
             <ul class="px-2 py-2 flex flex-col gap-2">
             {#each $queue as item,index}
                 <li class="p-2  {index == $currentPlayingIndex?"border-2 border-surface-500 rounded-lg":""}">
