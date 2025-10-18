@@ -165,6 +165,10 @@
                 </select>
             </div>
 
+            <button class="btn hidden sm:block" onclick={()=>{setPlayerSize("queue")}}>
+                <ListMusic />
+            </button>
+
             <button class="btn toggleMinMax" onclick={()=>{setPlayerSize("max")}}>
                 <ChevronUp />
             </button>    
@@ -244,7 +248,10 @@
 
 {:else if $playerSize == "queue"}
     <div class="full-player inset-0 bg-surface-950 w-screen h-dvh flex flex-col">
-        <div class="minimize py-4 h-fit flex w-full justify-end">
+        <div class="minimize py-4 h-fit flex w-full justify-between">
+            <button class="btn" onclick={()=>{setPlayerSize("mini")}}>
+                <ChevronDown />
+            </button>
             <button class="btn" onclick={()=>{setPlayerSize("max")}}>
                 <X/>
             </button>
