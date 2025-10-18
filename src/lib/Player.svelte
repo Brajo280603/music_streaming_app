@@ -26,6 +26,8 @@
         deleteFromQueue,
         playPrevOnQueue,
         playNextOnQueue,
+        quality_option_index,
+        setQualityIndex
         
     } from '$lib/stores/player'
 
@@ -40,7 +42,7 @@
     let playUrl = $derived.by(()=>{
             if (quality_option?.length > 0) {
 
-                return quality_option[0].url;
+                return quality_option[$quality_option_index].url;
             } else {
                 return ''; 
             }
@@ -158,7 +160,7 @@
             
 
             <div>
-                <select class="select" bind:value={playUrl} bind:this={selectQuality}>
+                <select class="select" bind:value={playUrl} bind:this={selectQuality} onchange={()=>{setQualityIndex(selectQuality.selectedIndex)}}>
                     {#each quality_option as quality }
                         <option value="{quality.url}">{quality.type}</option>
                     {/each}
