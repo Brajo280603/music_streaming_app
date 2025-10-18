@@ -47,7 +47,8 @@ async function search(){
                 'albumName':elem.title,
                 'imgSrc':elem.image.replace('50x50','500x500'),
                 'miniImg':elem.image,
-                'albumUrl':elem.id
+                'albumUrl':elem.url,
+                'albumId':elem.id
             })
         });
 
@@ -69,9 +70,9 @@ async function search(){
 
 <div class="w-screen h-dvh flex flex-col items-center  gap-5  ">
     <div class="fixed top-0 py-5 flex justify-center w-full glass z-[1000] {$playerSize != "mini" ? "hidden":""}">
-        <div class="input-group grid-cols-[1fr_auto] md:w-1/2 bg-surface-900 z-100 " onchange={()=>{if(song_name.length > 0)searchSong()}}>
+        <div class="input-group grid-cols-[1fr_auto] md:w-1/2 bg-surface-900 z-100 " onchange={()=>{if(song_name.length > 0)search()}}>
             <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
-            <button class="ig-btn preset-filled" title="Search" onclick={()=>{searchSong}}>
+            <button class="ig-btn preset-filled" title="Search" onclick={()=>{search}}>
                 <Search />
             </button>
         </div>

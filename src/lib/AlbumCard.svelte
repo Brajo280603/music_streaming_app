@@ -6,38 +6,18 @@
     import { decryptUrl } from "$lib/decrypt";
     import {
         currentSong,
-        setCurrentSong
     } from '$lib/stores/player'
 
+    import {
+      album_url_state
+    } from "$lib/stores/album.svelte"
+	import { goto } from "$app/navigation";
 
     // creating new
-    async function openAlbum(){
-        let res = await fetch(`api/albumDetails?id=${albumUrl}`)
-        res = await res.json();
-        console.log(res)
-        let data = res;
-        data['urls'] = decryptUrl(data['encrypted_media_url'])
-
-        let quality_options = []
-
-        for (let prop in data.urls){
-            quality_options.push({
-                url:data.urls[prop],
-                type:prop
-            })    
-        }
-
-        data = {
-
-            'albumName':data.album,
-            'imgSrc':data.image.replace('150x150','500x500'),
-            'miniImg':data.image.replace('150x150','50x50'),
-            'quality_option':quality_options
-        }
-
-        setCurrentSong(data);
-
-    }
+  async function openAlbum(){
+      album_url_state.url = albumUrl;
+      goto("/album");
+  }
 
 
 

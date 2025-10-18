@@ -1,6 +1,7 @@
 <script>
 import AlbumCard from './AlbumCard.svelte';
 let {AlbumCards} = $props()
+console.log(AlbumCards)
 </script>
 
 <h3 class="py-4">Albums</h3>
