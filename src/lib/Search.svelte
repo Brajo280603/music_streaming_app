@@ -49,9 +49,9 @@ async function searchSong(){
 
 <div class="w-screen h-dvh flex flex-col items-center  gap-5  ">
     <div class="fixed top-0 py-5 flex justify-center w-full glass z-[1000] {$playerSize != "mini" ? "hidden":""}">
-        <div class="input-group grid-cols-[1fr_auto] md:w-1/2 bg-surface-900 z-100 ">
+        <div class="input-group grid-cols-[1fr_auto] md:w-1/2 bg-surface-900 z-100 " onchange={()=>{searchSong()}}>
             <input class="ig-input" type="text" placeholder="Search Song..." bind:value={song_name} />
-            <button class="ig-btn preset-filled" title="Search" on:click={searchSong}>
+            <button class="ig-btn preset-filled" title="Search" onclick={()=>{searchSong}}>
                 <Search />
             </button>
         </div>
