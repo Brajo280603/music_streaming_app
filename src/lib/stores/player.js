@@ -1,4 +1,5 @@
 import { writable,get } from "svelte/store";
+import { browser } from "$app/environment";
 
 export const currentSong = writable({})
 export const queue = writable([{
@@ -167,6 +168,14 @@ export function setPlayerSize(val){
     playerSize.set(val);
 }
 
+//__________Quality Settings persist___________
+export const quality_option_index = writable(browser && localStorage?.getItem("quality_option_index")||0)
+
+quality_option_index.subscribe(val => browser && localStorage.setItem("quality_option_index",val))
+
+export function setQualityIndex(index){
+    quality_option_index.set(index);
+}
 
 
 //_______________Queue and Queue functions_____________
