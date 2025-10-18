@@ -77,7 +77,7 @@
 <!-- svelte-ignore a11y_missing_attribute -->
 <a
   onclick={()=>{playSong("play")}}
-  class="card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-92 divide-y overflow-hidden "
+  class="card group preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-92 divide-y overflow-hidden cursor-pointer"
 >
 
   <header class="relative z-0">
