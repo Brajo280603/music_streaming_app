@@ -6,9 +6,10 @@
 - [x] design the max player for phone
 - [ ] design the max player for desktop (fixed needs new design)
 - [x] loading progress ring is not centered
-- [ ] search on enter key 
+- [x] search on enter key 
 - [ ] bug on same song playing one after another.
 - [ ] bug on no active currentplayingsong
+- [x] bug on queue is not scrollable
 
 ## Improvements
 - [ ] Playlist playback
