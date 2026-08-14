@@ -90,35 +90,6 @@ export const queue = writable([{
     ]
 },
 {
-    "songName": "English E Bangla",
-    "albumName": "English E Bangla",
-    "artistName": "Silajit, Avishek Saha, Ishan Mitra, Syamantak Sengupta",
-    "imgSrc": "https://c.saavncdn.com/294/English-E-Bangla-Bengali-2025-20250806183607-500x500.jpg",
-    "miniImg": "https://c.saavncdn.com/294/English-E-Bangla-Bengali-2025-20250806183607-50x50.jpg",
-    "quality_option": [
-        {
-            "url": "https://aac.saavncdn.com/294/ca99d720bb3bc8877e7819cfd1987a10_12.mp4",
-            "type": "Low"
-        },
-        {
-            "url": "https://aac.saavncdn.com/294/ca99d720bb3bc8877e7819cfd1987a10_48.mp4",
-            "type": "Fair"
-        },
-        {
-            "url": "https://aac.saavncdn.com/294/ca99d720bb3bc8877e7819cfd1987a10_96.mp4",
-            "type": "Good"
-        },
-        {
-            "url": "https://aac.saavncdn.com/294/ca99d720bb3bc8877e7819cfd1987a10_160.mp4",
-            "type": "Best"
-        },
-        {
-            "url": "https://aac.saavncdn.com/294/ca99d720bb3bc8877e7819cfd1987a10_320.mp4",
-            "type": "Extreme"
-        }
-    ]
-},
-{
     "songName": "Eshechi Toke Niye",
     "albumName": "Paglu",
     "artistName": "Mohit Chauhan, Jeet Gannguli, Prasen",
